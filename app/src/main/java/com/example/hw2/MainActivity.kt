@@ -5,14 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -23,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W600
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,20 +29,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val ingredients: List<String> = listOf("(4 pound) chicken, cut into pieces",  "1 cup buttermilk", "2 cups all-purpose flour for coating", "1 teaspoon paprika", "salt and pepper to taste", "2 quarts vegetable oil for frying")
             HW2Theme {
-                card()
+                card(ingrediants= ingredients)
             }
         }
     }
 
     @Composable
-    fun card() {
+    fun card(ingrediants: List<String>) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Card(
+                shape = RoundedCornerShape(10.dp),
                 colors =
                     CardDefaults.cardColors(
                         contentColor = Color(0xffd8ecf2),
@@ -68,12 +65,35 @@ class MainActivity : ComponentActivity() {
                     Text(
                         modifier = Modifier,
                         text = "Fried Chicken Recipe",
-                        fontSize = 20.sp,
+                        fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.font)),
                         fontWeight = W600,
                         color = Color(0xFFcdedf7),
                     )
                 }
+                Column(
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.8f).padding(start= 10.dp),
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    horizontalAlignment = Alignment.Start
+                ){
+                    Text(text="Requirements: ", color = Color(0xFFcdedf7), fontFamily = FontFamily(Font(R.font.font)))
+                    ingrediants. mapIndexed{index, item ->
+                        Text (
+                            fontFamily = FontFamily(Font(R.font.font)),
+                            text = "${index+1},  $item",
+                            modifier = Modifier,
+                            color = Color (0xffe0b62b),
+                            fontWeight = W400,
+                            fontSize = 10.sp,
+
+                        )
+                    }
+
+
+
+
+                }
+
             }
         }
     }
@@ -81,6 +101,6 @@ class MainActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun test() {
-        card()
+     MainActivity()
     }
 }
